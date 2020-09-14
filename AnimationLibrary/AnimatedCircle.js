@@ -1,4 +1,4 @@
-//ANIMACION DE LOS CIRCULOS
+//ANIMACION DE LOS CIRCULOS------------ no tocar-----------------------
 var AnimatedCircle = function(objectID, objectLabel)
 {
 	this.objectID = objectID;
@@ -9,10 +9,7 @@ var AnimatedCircle = function(objectID, objectLabel)
 	this.y = 0;
 	this.alpha = 1.0;
 	this.addedToScene = true;
-        this.highlightIndex = -1;
-/*	this.foregroundColor  = '#007700';
-	this.backgroundColor  = '#EEFFEE';
- */
+    this.highlightIndex = -1;
 }
 
 AnimatedCircle.prototype = new AnimatedObject();
@@ -33,9 +30,6 @@ AnimatedObject.prototype.setWidth = function(newWidth)
 {
 	this.radius = newWidth / 2;
 }
-
-
-
 
 
 AnimatedCircle.prototype.getHeadPointerAttachPos = function(fromX, fromY)
@@ -96,7 +90,7 @@ AnimatedCircle.prototype.draw = function(ctx)
                   this.textWidth = ctx.measureText(this.label).width;
                   this.highlightIndexDirty = false;
              }
-             if (this.highlightIndex != -1 && this.highlightIndex < this.label.length) //this.highlghtIndex < this.label.length)
+             if (this.highlightIndex != -1 && this.highlightIndex < this.label.length)
              {
                      var  startingXForHighlight = this.x - this.textWidth / 2;
     	             ctx.textAlign = 'left';
@@ -153,7 +147,7 @@ AnimatedCircle.prototype.createUndoDelete = function()
 	return new UndoDeleteCircle(this.objectID, this.label, this.x, this.y, this.foregroundColor, this.backgroundColor, this.layer, this.radius);
 }
 
-		
+//funcion para borrar el circulo		
 function UndoDeleteCircle(id, lab, x, y, foregroundColor, backgroundColor, l, radius)
 {
 	this.objectID = id;

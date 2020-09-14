@@ -1,4 +1,4 @@
-
+//ANIMACION DE LOS LABEL------------ no tocar-----------------------
 function AnimatedLabel(id, val, center, initialWidth)
 {
 	this.centering = center;
@@ -79,7 +79,6 @@ AnimatedLabel.prototype.draw = function(ctx)
 	    ctx.fillStyle = "#ff0000";
 		ctx.lineWidth = this.highlightDiff;
 		ctx.strokeText(this.label, this.x, this.y);		
-		//ctx.fillText(this.label, this.x, this.y);
 	}
 	ctx.strokeStyle = this.labelColor;
 	ctx.fillStyle = this.labelColor;
@@ -108,7 +107,6 @@ AnimatedLabel.prototype.draw = function(ctx)
 
 
                 }
-		//this.textWidth = ctx.measureText(this.label).width;
 	}
 	else
 	{
@@ -116,7 +114,6 @@ AnimatedLabel.prototype.draw = function(ctx)
 		for (var i = 0; i < strList.length; i++)
 		{
 			ctx.fillText(strList[i], this.x, this.y + offset + i * 12);
-			//this.textWidth = Math.max(this.textWidth, ctx.measureText(strList[i]).width);
 		}		
 	}
 	ctx.closePath();
@@ -239,7 +236,7 @@ AnimatedLabel.prototype.getWidth = function()
 
 AnimatedLabel.prototype.getHeight = function()
 {
-	return 10;  // HACK!  HACK!  HACK!  HACK!
+	return 10;  
 }
 
 
@@ -284,7 +281,7 @@ AnimatedLabel.prototype.top = function()
 {
 	   if (this.centering)
 	   {
-		   return  this.y - 5; //TODO: Un-Hardwire
+		   return  this.y - 5; 
 	   }
 	   else 
 	   {
@@ -297,11 +294,11 @@ AnimatedLabel.prototype.bottom = function()
 {
    if (this.centering)
    {
-	   return  this.y + 5; // TODO: + height / 2;
+	   return  this.y + 5; 
    }
    else 
    {
-	   return  this.y + 10; // TODO: + hieght;
+	   return  this.y + 10;
    }
 }
 	   
@@ -310,11 +307,11 @@ AnimatedLabel.prototype.right = function()
 {
    if (this.centering)
    {
-	   return  this.x + this.textWidth / 2; // TODO: + width / 2;
+	   return  this.x + this.textWidth / 2; 
    }
    else
    {
-	   return  this.x + this.textWidth; // TODO: + width;
+	   return  this.x + this.textWidth; 
    }
 }
 
@@ -327,14 +324,13 @@ AnimatedLabel.prototype.left = function()
    }
    else
    {
-	   return  this.x; // TODO:  - a little?
+	   return  this.x; 
    }
 }
 
 
 AnimatedLabel.prototype.setHighlightIndex = function(hlIndex)
 {
-    // Only allow highlight index for labels that don't have End-Of-Line
     if (this.label.indexOf("\n") == -1 && this.label.length > hlIndex)
     {
          this.highlightIndex = hlIndex;
