@@ -14,10 +14,10 @@ var LARGE_SIZE = 1;
 var EXTRA_FIELD_WIDTH = 50;
 var EXTRA_FIELD_HEIGHT = 50;
 
-//CUADRADO BUSCANDO prueba de cambio
+//CUADRADO BUSCANDO
 var SEARCH_FOR_X = 1050;
 var SEARCH_FOR_Y = 210;
-//100
+
 //CUADRADO RESULTADO
 var RESULT_X = 1150; 
 var RESULT_Y = 210;
@@ -97,7 +97,7 @@ Search.LINEAR_CODE = [ ["1. def ", "linearSearch(listData, value)"],
                        ["6.        return -1"],
                        ["7.    return index"]
                     ];
-Search.BINARY_CODE = [ ["1.def ", "binarySearch(listData, value)"],
+Search.BINARY_CODE = [ ["1. def ", "binarySearch(listData, value)"],
                        ["2.    low = 0"],
                        ["3.    high = len(listData) - 1"],
                        ["4.    while (","low <= high",")"],
@@ -127,7 +127,6 @@ Search.prototype.init = function(am, w, h)
     this.addControls();
     this.nextIndex = 0;
     this.commands = [];
-    //this.setup();
     this.initialIndex = this.nextIndex;
 }
 
@@ -157,7 +156,7 @@ Search.prototype.addControls =  function()  /* BOTONES */{
     this.cantField = addControlToAlgorithmBar("Text", "");//AQUI SE COLOCA EL NUMERO DE CUADROS A CREAR
     this.cantField.onkeydown = this.returnSubmit(this.cantField, null, 3, true);//MAX 999
 
-    this.createField = addControlToAlgorithmBar("Button", "Crear Vectores");
+    this.createField = addControlToAlgorithmBar("Button", "Crear Vector");
     this.createField.onclick = this.createFieldback.bind(this);
     this.controls.push(this.cantField);
     this.controls.push(this.createField);
@@ -525,7 +524,7 @@ Search.prototype.binarySearch = function(searchVal){
 }
 
 //-------------------LINEAR SEARCH---------------------------------------
-Search.prototype.linearSearch = function(searchVal){//LINEAL SEARCH
+Search.prototype.linearSearch = function(searchVal){
     this.commands = new Array();
     this.setCodeAlpha(this.binaryCodeID, 0);
     this.setCodeAlpha(this.linearCodeID, 1);
