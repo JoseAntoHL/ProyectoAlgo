@@ -10,20 +10,6 @@ function reorderSibling(node1, node2)
 }
 
 
-function swapControlDiv() //BOTON DE CAMBIO DE POSICION DESACTIVADO
-{
-    /*swapped = !swapped;
-    if (swapped) {
-	reorderSibling(document.getElementById('canvas'), document.getElementById('generalAnimationControlSection'));
-        setCookie("VisualizationControlSwapped", "true", 30);
-
-    } else {
-	reorderSibling(document.getElementById('generalAnimationControlSection'), document.getElementById('canvas'));
-        setCookie("VisualizationControlSwapped", "false", 30);
-
-    }*/
-}
-
 
 // Utility funciton to read a cookie
 function getCookie(cookieName)
