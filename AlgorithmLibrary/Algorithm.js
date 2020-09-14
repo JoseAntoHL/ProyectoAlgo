@@ -1,58 +1,4 @@
-function addLabelToAlgorithmBar(labelName){
-    var element = document.createTextNode(labelName);	
-	var tableEntry = document.createElement("td");	
-	tableEntry.appendChild(element);
-    var controlBar = document.getElementById("AlgorithmSpecificControls");	
-    controlBar.appendChild(tableEntry);
-	return element;
-}
-
-
-function addCheckboxToAlgorithmBar(boxLabel)
-{	
-	var element = document.createElement("input");
-    element.setAttribute("value", boxLabel);
-    var label = document.createTextNode(boxLabel);
-	var tableEntry = document.createElement("td");	
-	tableEntry.appendChild(element);
-	tableEntry.appendChild(label);	
-    var controlBar = document.getElementById("AlgorithmSpecificControls");
-    controlBar.appendChild(tableEntry);
-	return element;
-}
-
-function addRadioButtonGroupToAlgorithmBar(buttonNames, groupName)
-{
-	var buttonList = [];
-	var newTable = document.createElement("table");
-		
-	for (var i = 0; i < buttonNames.length; i++)
-	{
-		var midLevel = document.createElement("tr");
-		var bottomLevel = document.createElement("td");
-		
-		var button = document.createElement("input");
-		button.setAttribute("type", "radio");
-		button.setAttribute("name", groupName);
-		button.setAttribute("value", buttonNames[i]);
-		bottomLevel.appendChild(button);
-		midLevel.appendChild(bottomLevel);
-
-		var txtNode = document.createTextNode(" " + buttonNames[i]); 
-		bottomLevel.appendChild(txtNode);
-		newTable.appendChild(midLevel);	
-		buttonList.push(button);
-	}	
-	var topLevelTableEntry = document.createElement("td");
-	topLevelTableEntry.appendChild(newTable);
-	
-	var controlBar = document.getElementById("AlgorithmSpecificControls");
-	controlBar.appendChild(topLevelTableEntry);
-	
-	return buttonList
-}
-
-
+//---------no borrar--------------------------------------
 function addControlToAlgorithmBar(type, name) {
 	
     var element = document.createElement("input");
@@ -66,19 +12,16 @@ function addControlToAlgorithmBar(type, name) {
 	
     var controlBar = document.getElementById("AlgorithmSpecificControls");
 	
-    //Append the element in page (in span).
     controlBar.appendChild(tableEntry);
 	return element;
 	
 }
 
 
-
-function Algorithm(am)
+function Algorithm(am)//constructor
 {
 	
 }
-
 
 
 Algorithm.prototype.setCodeAlpha = function(code, newAlpha)
@@ -116,7 +59,7 @@ Algorithm.prototype.addCodeToCanvasBase  = function(code, start_x, start_y, line
 	return codeID;
 }
 
-
+//-----------ANIMACION DE LA LETRAS INFERIORES ----------------
 Algorithm.prototype.init = function(am, w, h)
 {
 	this.animationManager = am;
@@ -174,7 +117,8 @@ Algorithm.prototype.normalizeNumber = function(input, maxLen)
 		return ("OOO0000" +input).substr(-maxLen, maxLen);
 	}
 }
-		
+
+//-------------PARAA INIT--------------------		
 Algorithm.prototype.disableUI = function(event)
 {
 	// sobre escribir en clase base
@@ -281,6 +225,7 @@ Algorithm.prototype.returnSubmit = function(field, funct, maxsize, intOnly)
 	
 }
 
+
 Algorithm.prototype.addReturnSubmit = function(field, action)
 {
 	field.onkeydown = this.returnSubmit(field, action, 4, false);	
@@ -290,7 +235,7 @@ Algorithm.prototype.reset = function()
 {
 	// sera sobre escrito en la clase base
 }
-		
+//-------------PARAA INIT--------------------		
 Algorithm.prototype.undo = function(event)
 {
 	// Elimina la ultima accion
@@ -305,11 +250,11 @@ Algorithm.prototype.undo = function(event)
 	this.recordAnimation = true;
 }
 
-
+/*
 Algorithm.prototype.clearHistory = function()
 {
 	this.actionHistory = [];
-}
+}*/
 		
 Algorithm.prototype.cmd = function()
 {
