@@ -15,18 +15,18 @@ var EXTRA_FIELD_WIDTH = 50;
 var EXTRA_FIELD_HEIGHT = 50;
 
 //CUADRADO BUSCANDO prueba de cambio
-var SEARCH_FOR_X = 1050;  //450
-var SEARCH_FOR_Y = 210;//30
+var SEARCH_FOR_X = 1050;
+var SEARCH_FOR_Y = 210;
 //100
 //CUADRADO RESULTADO
-var RESULT_X = 1150; //550 
-var RESULT_Y = 210;//30
+var RESULT_X = 1150; 
+var RESULT_Y = 210;
 
 //CUADRADO INDEX
-var INDEX_X = 1050;  //450
-var INDEX_Y = 310;//130
+var INDEX_X = 1050;
+var INDEX_Y = 310;
 
-
+//TAMANO DE CIRCULOS
 var HIGHLIGHT_CIRCLE_SIZE_SMALL = 20;
 var HIGHLIGHT_CIRCLE_SIZE_LARGE = 10;
 var HIGHLIGHT_CIRCLE_SIZE = HIGHLIGHT_CIRCLE_SIZE_SMALL;
@@ -40,48 +40,42 @@ var HIGH_CIRCLE_COLOR = "#FF9009";
 var HIGH_BACKGROUND_COLOR = "#FFFFF0";
 
 //CIRCULO BAJO
-var LOW_POS_X = 1000;//350
-var LOW_POS_Y = 310;//130
+var LOW_POS_X = 1000;
+var LOW_POS_Y = 310;
 
 //CIRCULO MEDIO
-var MID_POS_X = 1100;//450
-var MID_POS_Y = 310;//130
+var MID_POS_X = 1100;
+var MID_POS_Y = 310;
 
 //CIRCULO ALTO 
-var HIGH_POS_X = 1200;//550
-var HIGH_POS_Y = 310;//130
+var HIGH_POS_X = 1200;
+var HIGH_POS_Y = 310;
 
 
 // ARRAY POSICION
-//var ARRAY_START_X_SMALL = 100;
 var ARRAY_START_X_LARGE = 100;
 var ARRAY_START_X = ARRAY_START_X_LARGE;
-//var ARRAY_START_Y_SMALL = 80;//240
-var ARRAY_START_Y_LARGE = 40;//200
+
+var ARRAY_START_Y_LARGE = 40;
 var ARRAY_START_Y = ARRAY_START_Y_LARGE;
 
-//var ARRAY_ELEM_WIDTH_SMALL = 50;//50
-var ARRAY_ELEM_WIDTH_LARGE = 40;//25
+var ARRAY_ELEM_WIDTH_LARGE = 40;
 var ARRAY_ELEM_WIDTH = ARRAY_ELEM_WIDTH_LARGE;
 
 //ARRAY CORTO
-//var ARRAY_ELEM_HEIGHT_SMALL = 50;
-var ARRAY_ELEM_HEIGHT_LARGE = 30;//20
-var ARRAY_ELEM_HEIGHT = ARRAY_ELEM_HEIGHT_LARGE;// AQUI SE MODIFICA PARA VER CUAL DE  LOS 2 TOMA
+var ARRAY_ELEM_HEIGHT_LARGE = 30;
+var ARRAY_ELEM_HEIGHT = ARRAY_ELEM_HEIGHT_LARGE;// ESPACIO POR ELEMENTO
 
 //ARRAY LARGO
-//var ARRAY_ELEMS_PER_LINE_SMALL = 16;//TOMANDO
-var ARRAY_ELEMS_PER_LINE_LARGE = 20;//30
-var ARRAY_ELEMS_PER_LINE = ARRAY_ELEMS_PER_LINE_LARGE;// AQUI SE MODIFICA PARA VER CUAL DE  LOS 2 TOMA
+var ARRAY_ELEMS_PER_LINE_LARGE = 20;
+var ARRAY_ELEMS_PER_LINE = ARRAY_ELEMS_PER_LINE_LARGE;// CANTIDAD DE ELEMENTOS POR LINEA
 
 //ESPACIO ENTRE ARRAYS
-var ARRAY_LINE_SPACING_LARGE = 60;//40
-//var ARRAY_LINE_SPACING_SMALL = 130;// 130
-var ARRAY_LINE_SPACING = ARRAY_LINE_SPACING_LARGE; // AQUI SE MODIFICA PARA VER CUAL DE  LOS 2 TOMA
-//TAMA;O DE ARRAY
-//var SIZE_SMALL = 30;
-//var SIZE_LARGE = 200;//TOMANDO
-var SIZE = '';//ARRAY QUE TOMAR POR DEFECTO
+var ARRAY_LINE_SPACING_LARGE = 60;
+var ARRAY_LINE_SPACING = ARRAY_LINE_SPACING_LARGE; // CANTIDAD DE ESPACIO DE SEPARACION
+
+//TAMANO DE ARRAY
+var SIZE = '';//TAMANO DEL ARRAY QUE TOMARA
 
 function Search(am, w, h)
 {
@@ -93,7 +87,7 @@ Search.prototype = new Algorithm();
 
 Search.superclass = Algorithm.prototype;
 
-//LINEAS DE CODIGO QUE SE MUESTRAN EN LA INTERFAZ
+//LINEAS DE PSEUDOCODIGO QUE SE MUESTRAN EN LA INTERFAZ
 
 Search.LINEAR_CODE = [ ["1. def ", "linearSearch(listData, value)"],
                        ["2.    index = 0"],
@@ -161,47 +155,15 @@ Search.prototype.addControls =  function()  /* BOTONES */{
 
     // SEGUNDO FIELD----
     this.cantField = addControlToAlgorithmBar("Text", "");//AQUI SE COLOCA EL NUMERO DE CUADROS A CREAR
-    this.cantField.onkeydown = this.returnSubmit(this.cantField, null, 3, true);
+    this.cantField.onkeydown = this.returnSubmit(this.cantField, null, 3, true);//MAX 999
 
     this.createField = addControlToAlgorithmBar("Button", "Crear Vectores");
     this.createField.onclick = this.createFieldback.bind(this);
     this.controls.push(this.cantField);
     this.controls.push(this.createField);
-//eliminable----
-//	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Corto", "Largo"], "List Size");
-//	this.smallListButton = radioButtonList[0];
-//    this.smallListButton.onclick = this.smallListCallback.bind(this);
-    
-//	this.largeListButton = radioButtonList[1];
- //   this.largeListButton.onclick = this.largeListCallback.bind(this);
-  
-//	this.smallListButton.checked = true;//para que el check este en el boton corto ---solo vista
-//--------  
+
 }
 
-
-/*
-Search.prototype.smallListCallback = function (event)
-{
-	if (this.size != SMALL_SIZE)
-	{
-		this.animationManager.resetAll();
-		this.setup_small();		
-	}
-}
-
-
-Search.prototype.largeListCallback = function (event)
-{
-	if (this.size != LARGE_SIZE)
-	{
-		this.animationManager.resetAll();
-		this.setup_large();		
-	}
-}
-
-
-*/
 Search.prototype.enableUI = function(event){
     for (var i = 0; i < this.controls.length; i++)
     {
@@ -235,6 +197,7 @@ Search.prototype.getIndexY = function(index) {
 }
 
 Search.prototype.setup = function(){
+    //FUNCION PARA CREAR LOS VECTORES RELLENOS CON LOS NUMEROS ALEATORIOS EN ORDEN CRECIENTE ------- NO MODIFICAR ----- PELIGRO----- :D---
     this.nextIndex = 0;
 
     this.values = new Array(SIZE);
@@ -275,9 +238,7 @@ Search.prototype.setup = function(){
     this.movingLabelID = this.nextIndex++;
     this.cmd("CreateLabel",this.movingLabelID,  "", 0, 0);
 
-   //	this.cmd("CreateLabel", this.leftoverLabelID, "", PUSH_LABEL_X, PUSH_LABEL_Y);
-
-
+//-----------------------------------------CUADROS DE LADO DERECHO-----------------------------------------------------------------------
     this.searchForBoxID = this.nextIndex++;
     this.searchForBoxLabel = this.nextIndex++;
     this.cmd("CreateRectangle",  this.searchForBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,SEARCH_FOR_X, SEARCH_FOR_Y);
@@ -368,37 +329,7 @@ Search.prototype.setup = function(){
     this.animationManager.skipForward();
     this.animationManager.clearHistory();
 }
-/*
-Search.prototype.setup_small = function() {
-
-   HIGHLIGHT_CIRCLE_SIZE = HIGHLIGHT_CIRCLE_SIZE_SMALL;
-   ARRAY_START_X = ARRAY_START_X_SMALL;
-   ARRAY_START_Y = ARRAY_START_Y_SMALL;
-   ARRAY_ELEM_WIDTH = ARRAY_ELEM_WIDTH_SMALL;
-   ARRAY_ELEM_HEIGHT = ARRAY_ELEM_HEIGHT_SMALL;
-   ARRAY_ELEMS_PER_LINE = ARRAY_ELEMS_PER_LINE_SMALL;
-   ARRAY_LINE_SPACING = ARRAY_LINE_SPACING_SMALL;
-   SIZE = SIZE_SMALL;
-   this.size = SMALL_SIZE;
-   this.setup();
-
-}*/
-
-
-Search.prototype.setup_large  = function() {
-
-   HIGHLIGHT_CIRCLE_SIZE = HIGHLIGHT_CIRCLE_SIZE_LARGE;
-   ARRAY_START_X = ARRAY_START_X_LARGE;
-   ARRAY_START_Y = ARRAY_START_Y_LARGE;
-   ARRAY_ELEM_WIDTH = ARRAY_ELEM_WIDTH_LARGE;
-   ARRAY_ELEM_HEIGHT = ARRAY_ELEM_HEIGHT_LARGE;
-   ARRAY_ELEMS_PER_LINE = ARRAY_ELEMS_PER_LINE_LARGE;
-   ARRAY_LINE_SPACING = ARRAY_LINE_SPACING_LARGE;
-   SIZE = SIZE_LARGE;
-   this.size = LARGE_SIZE;
-   this.setup()
-}
-
+//FUNCION QUE AYUDA A CREAR LA CANTIDAD N DE ESPACIOS EN EL VECTOR
 Search.prototype.setup_create  = function(createVal) {
 
     HIGHLIGHT_CIRCLE_SIZE = HIGHLIGHT_CIRCLE_SIZE_LARGE;
@@ -414,7 +345,7 @@ Search.prototype.setup_create  = function(createVal) {
  }
 
 //----------NO TOCAR----------------------------------
-
+//FUNCIONES DE IMPLEMENTACION DE LOS METODOS 
 Search.prototype.linearSearchCallback = function(event)
 {
     var searchVal = this.searchField.value;
@@ -435,15 +366,15 @@ Search.prototype.quickSearchCallback = function(event) // NO FUNCIONAL
     this.implementAction(this.quickSearch.bind(this), searchVal);
 
 }
-
+//FUNCIONES DE IMPLEMENTACION PARA CREAR N ESPACIOS
 Search.prototype.createFieldback = function(event)
 {
     var createVal = this.cantField.value;
     this.implementAction(this.setup_create.bind(this), createVal);
 }
 
-
-Search.prototype.binarySearch = function(searchVal){//BINARY SEARCH
+//-------------------BINARY SEARCH---------------------------------------
+Search.prototype.binarySearch = function(searchVal){
     this.commands = new Array();
     this.setCodeAlpha(this.binaryCodeID, 1);
     this.setCodeAlpha(this.linearCodeID, 0);
@@ -593,7 +524,7 @@ Search.prototype.binarySearch = function(searchVal){//BINARY SEARCH
     return this.commands;
 }
 
-
+//-------------------LINEAR SEARCH---------------------------------------
 Search.prototype.linearSearch = function(searchVal){//LINEAL SEARCH
     this.commands = new Array();
     this.setCodeAlpha(this.binaryCodeID, 0);
@@ -724,7 +655,8 @@ Search.prototype.linearSearch = function(searchVal){//LINEAL SEARCH
     return this.commands;
 }
 
-Search.prototype.quickSearch = function(searchVal){//QUICK SEARCH  --- falta implementar UU
+//---------------------QUICK SEARCH-------------------------------------- falta implementar UU
+Search.prototype.quickSearch = function(searchVal){
     this.commands = new Array();
     this.setCodeAlpha(this.binaryCodeID, 0);
     this.setCodeAlpha(this.linearCodeID, 0);
