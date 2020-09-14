@@ -52,33 +52,36 @@ var HIGH_POS_X = 1200;//550
 var HIGH_POS_Y = 310;//130
 
 
-// ARRAY 
-var ARRAY_START_X_SMALL = 100;
+// ARRAY POSICION
+//var ARRAY_START_X_SMALL = 100;
 var ARRAY_START_X_LARGE = 100;
-var ARRAY_START_X = ARRAY_START_X_SMALL;
-var ARRAY_START_Y_SMALL = 80;//240
+var ARRAY_START_X = ARRAY_START_X_LARGE;
+//var ARRAY_START_Y_SMALL = 80;//240
 var ARRAY_START_Y_LARGE = 40;//200
-var ARRAY_START_Y = ARRAY_START_Y_SMALL;
-var ARRAY_ELEM_WIDTH_SMALL = 50;
-var ARRAY_ELEM_WIDTH_LARGE = 25;
-var ARRAY_ELEM_WIDTH = ARRAY_ELEM_WIDTH_SMALL;
+var ARRAY_START_Y = ARRAY_START_Y_LARGE;
 
-var ARRAY_ELEM_HEIGHT_SMALL = 50;
-var ARRAY_ELEM_HEIGHT_LARGE = 20;
-var ARRAY_ELEM_HEIGHT = ARRAY_ELEM_HEIGHT_SMALL;
+//var ARRAY_ELEM_WIDTH_SMALL = 50;//50
+var ARRAY_ELEM_WIDTH_LARGE = 40;//25
+var ARRAY_ELEM_WIDTH = ARRAY_ELEM_WIDTH_LARGE;
 
-var ARRAY_ELEMS_PER_LINE_SMALL = 16;
-var ARRAY_ELEMS_PER_LINE_LARGE = 30;
-var ARRAY_ELEMS_PER_LINE = ARRAY_ELEMS_PER_LINE_SMALL;
+//ARRAY CORTO
+//var ARRAY_ELEM_HEIGHT_SMALL = 50;
+var ARRAY_ELEM_HEIGHT_LARGE = 30;//20
+var ARRAY_ELEM_HEIGHT = ARRAY_ELEM_HEIGHT_LARGE;// AQUI SE MODIFICA PARA VER CUAL DE  LOS 2 TOMA
 
+//ARRAY LARGO
+//var ARRAY_ELEMS_PER_LINE_SMALL = 16;//TOMANDO
+var ARRAY_ELEMS_PER_LINE_LARGE = 20;//30
+var ARRAY_ELEMS_PER_LINE = ARRAY_ELEMS_PER_LINE_LARGE;// AQUI SE MODIFICA PARA VER CUAL DE  LOS 2 TOMA
 
-var ARRAY_LINE_SPACING_LARGE = 40;
-var ARRAY_LINE_SPACING_SMALL = 130;
-var ARRAY_LINE_SPACING = ARRAY_LINE_SPACING_SMALL;
+//ESPACIO ENTRE ARRAYS
+//var ARRAY_LINE_SPACING_LARGE = 60;//40
+var ARRAY_LINE_SPACING_SMALL = 130;// 130
+var ARRAY_LINE_SPACING = ARRAY_LINE_SPACING_LARGE; // AQUI SE MODIFICA PARA VER CUAL DE  LOS 2 TOMA
 //TAMA;O DE ARRAY
-var SIZE_SMALL = 30;
-var SIZE_LARGE = 80;
-var SIZE = SIZE_LARGE;//ARRAY QUE TOMAR POR DEFECTO
+//var SIZE_SMALL = 30;
+//var SIZE_LARGE = 200;//TOMANDO
+var SIZE = '';//ARRAY QUE TOMAR POR DEFECTO
 
 function Search(am, w, h)
 {
@@ -87,7 +90,7 @@ function Search(am, w, h)
 }
 
 Search.prototype = new Algorithm();
-//Search.prototype.constructor = Search;
+
 Search.superclass = Algorithm.prototype;
 
 //LINEAS DE CODIGO QUE SE MUESTRAN EN LA INTERFAZ
@@ -130,13 +133,14 @@ Search.prototype.init = function(am, w, h)
     this.addControls();
     this.nextIndex = 0;
     this.commands = [];
-    this.setup();
+    //this.setup();
     this.initialIndex = this.nextIndex;
 }
 
 
 Search.prototype.addControls =  function()  /* BOTONES */{
     this.controls = [];
+    //PRIMER FIELD-------------
     this.searchField = addControlToAlgorithmBar("Text", "");//AQUI SE COLOCA EL NUMERO QUE DESEA BUSCAR
     this.searchField.onkeydown = this.returnSubmit(this.searchField,  null,  6, true);//MAX 999999
 
@@ -154,6 +158,15 @@ Search.prototype.addControls =  function()  /* BOTONES */{
     this.quicksearchButton = addControlToAlgorithmBar("Button", "Quick Select");//BOTON DE QUICK SELECT
     this.quicksearchButton.onclick = this.quickSearchCallback.bind(this);
     this.controls.push(this.quicksearchButton);
+
+    // SEGUNDO FIELD----
+    this.cantField = addControlToAlgorithmBar("Text", "");//AQUI SE COLOCA EL NUMERO DE CUADROS A CREAR
+    this.cantField.onkeydown = this.returnSubmit(this.cantField, null, 3, true);
+
+    this.createField = addControlToAlgorithmBar("Button", "Crear Vectores");
+    this.createField.onclick = this.createFieldback.bind(this);
+    this.controls.push(this.cantField);
+    this.controls.push(this.createField);
 //eliminable----
 //	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Corto", "Largo"], "List Size");
 //	this.smallListButton = radioButtonList[0];
@@ -167,7 +180,7 @@ Search.prototype.addControls =  function()  /* BOTONES */{
 }
 
 
-
+/*
 Search.prototype.smallListCallback = function (event)
 {
 	if (this.size != SMALL_SIZE)
@@ -188,16 +201,15 @@ Search.prototype.largeListCallback = function (event)
 }
 
 
-
-Search.prototype.enableUI = function(event)
-{
+*/
+Search.prototype.enableUI = function(event){
     for (var i = 0; i < this.controls.length; i++)
     {
 	this.controls[i].disabled = false;
     }
     
-    
 }
+
 Search.prototype.disableUI = function(event)
 {
     for (var i = 0; i < this.controls.length; i++)
@@ -287,7 +299,7 @@ Search.prototype.setup = function(){
     this.indexBoxID = this.nextIndex++;
     this.indexBoxLabel = this.nextIndex++;
     this.cmd("CreateRectangle",  this.indexBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,INDEX_X, INDEX_Y);
-    this.cmd("CreateLabel",  this.indexBoxLabel,  "index  ", INDEX_X, INDEX_Y);
+    this.cmd("CreateLabel",  this.indexBoxLabel,  "indice  ", INDEX_X, INDEX_Y);
     this.cmd("AlignLeft",   this.indexBoxLabel, this.indexBoxID);
 
 
@@ -295,7 +307,7 @@ Search.prototype.setup = function(){
     this.midBoxID = this.nextIndex++;
     this.midBoxLabel = this.nextIndex++;
     this.cmd("CreateRectangle",  this.midBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,MID_POS_X, MID_POS_Y);
-    this.cmd("CreateLabel",  this.midBoxLabel,  "medio  ", MID_POS_X, MID_POS_Y);
+    this.cmd("CreateLabel",  this.midBoxLabel,  "centro  ", MID_POS_X, MID_POS_Y);
     this.cmd("AlignLeft",   this.midBoxLabel, this.midBoxID);
     this.cmd("SetForegroundColor", this.midBoxID, MID_CIRCLE_COLOR);
     this.cmd("SetTextColor", this.midBoxID, MID_CIRCLE_COLOR);
@@ -308,7 +320,7 @@ Search.prototype.setup = function(){
     this.lowBoxID = this.nextIndex++;
     this.lowBoxLabel = this.nextIndex++;
     this.cmd("CreateRectangle",  this.lowBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,LOW_POS_X, LOW_POS_Y);
-    this.cmd("CreateLabel",  this.lowBoxLabel,  "bajo  ", LOW_POS_X, LOW_POS_Y);
+    this.cmd("CreateLabel",  this.lowBoxLabel,  "primero  ", LOW_POS_X, LOW_POS_Y);
     this.cmd("AlignLeft",   this.lowBoxLabel, this.lowBoxID);
     this.cmd("SetForegroundColor", this.lowBoxID, LOW_CIRCLE_COLOR);
     this.cmd("SetTextColor", this.lowBoxID, LOW_CIRCLE_COLOR);
@@ -322,7 +334,7 @@ Search.prototype.setup = function(){
     this.highBoxID = this.nextIndex++;
     this.highBoxLabel = this.nextIndex++;
     this.cmd("CreateRectangle",  this.highBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,HIGH_POS_X, HIGH_POS_Y);
-    this.cmd("CreateLabel",  this.highBoxLabel,  "alto  ", HIGH_POS_X, HIGH_POS_Y);
+    this.cmd("CreateLabel",  this.highBoxLabel,  "ultimo  ", HIGH_POS_X, HIGH_POS_Y);
     this.cmd("AlignLeft",   this.highBoxLabel, this.highBoxID);
     this.cmd("SetForegroundColor", this.highBoxID, HIGH_CIRCLE_COLOR);
     this.cmd("SetTextColor", this.highBoxID, HIGH_CIRCLE_COLOR);
@@ -364,7 +376,7 @@ Search.prototype.setup = function(){
     this.animationManager.skipForward();
     this.animationManager.clearHistory();
 }
-
+/*
 Search.prototype.setup_small = function() {
 
    HIGHLIGHT_CIRCLE_SIZE = HIGHLIGHT_CIRCLE_SIZE_SMALL;
@@ -378,7 +390,7 @@ Search.prototype.setup_small = function() {
    this.size = SMALL_SIZE;
    this.setup();
 
-}
+}*/
 
 
 Search.prototype.setup_large  = function() {
@@ -396,6 +408,20 @@ Search.prototype.setup_large  = function() {
 
 }
 
+Search.prototype.setup_create  = function(createVal) {
+
+    HIGHLIGHT_CIRCLE_SIZE = HIGHLIGHT_CIRCLE_SIZE_LARGE;
+    ARRAY_START_X = ARRAY_START_X_LARGE;
+    ARRAY_START_Y = ARRAY_START_Y_LARGE;
+    ARRAY_ELEM_WIDTH = ARRAY_ELEM_WIDTH_LARGE;
+    ARRAY_ELEM_HEIGHT = ARRAY_ELEM_HEIGHT_LARGE;
+    ARRAY_ELEMS_PER_LINE = ARRAY_ELEMS_PER_LINE_LARGE;
+    ARRAY_LINE_SPACING = ARRAY_LINE_SPACING_LARGE;
+    SIZE = createVal;
+    this.size = LARGE_SIZE;
+    this.setup()
+ 
+ }
 
 //----------NO TOCAR----------------------------------
 
@@ -413,13 +439,18 @@ Search.prototype.binarySearchCallback = function(event)
 
 }
 
-Search.prototype.quickSearchCallback = function(event)
+Search.prototype.quickSearchCallback = function(event) // NO FUNCIONAL
 {
     var searchVal = this.searchField.value;
     this.implementAction(this.quickSearch.bind(this), searchVal);
 
 }
 
+Search.prototype.createFieldback = function(event)
+{
+    var createVal = this.cantField.value;
+    this.implementAction(this.setup_create.bind(this), createVal);
+}
 
 
 Search.prototype.binarySearch = function(searchVal){//BINARY SEARCH
@@ -722,7 +753,7 @@ Search.prototype.linearSearch = function(searchVal){//LINEAL SEARCH
 }
 
 
-Search.prototype.quickSearch = function(searchVal){//QUICK SEARCH  --- falta implementar
+Search.prototype.quickSearch = function(searchVal){//QUICK SEARCH  --- falta implementar UU
     this.commands = new Array();
     this.setCodeAlpha(this.binaryCodeID, 0);
     this.setCodeAlpha(this.linearCodeID, 0);
