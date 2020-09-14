@@ -1,5 +1,4 @@
-
-
+//ANIMACION DE LOS LINKED------------ no tocar-----------------------
 function AnimatedLinkedList(id, val, wth, hgt, linkPer, verticalOrientation, linkPosEnd, numLab, fillColor, edgeColor)
 {
 	this.init(id, val, wth, hgt, linkPer, verticalOrientation, linkPosEnd, numLab, fillColor, edgeColor);
@@ -133,9 +132,6 @@ AnimatedLinkedList.prototype.bottom = function()
 }
 
 
-// TODO: Should we move this to the draw function, and save the
-//       space of the arrays?  Bit of a leftover from the Flash code,
-//       which did drawing differently
 AnimatedLinkedList.prototype.resetTextPosition = function()
 {
 	if (this.vertical)
@@ -143,7 +139,7 @@ AnimatedLinkedList.prototype.resetTextPosition = function()
 		this.labelPosX[0] = this.x;
 		
 		this.labelPosY[0] = this.y + this.h * (1-this.linkPercent)/2 *(1/this.numLabels - 1);				
-		//				labelPosY[0] = -height * (1-linkPercent) / 2 + height*(1-linkPercent)/2*numLabels;
+
 		for (var i = 1; i < this.numLabels; i++)
 		{
 			this.labelPosY[i] = this.labelPosY[i-1] +  this.h*(1-this.linkPercent)/this.numLabels;
@@ -178,7 +174,7 @@ AnimatedLinkedList.prototype.getTailPointerAttachPos = function(fromX, fromY, an
 	{
 		return [this.x + this.w / 2.0, this.y];								
 	}
-	else // (!this.vertical && !this.linkPositionEnd)
+	else 
 	{
 		return [this.x - this.w / 2.0, this.y];								
 	}
@@ -256,7 +252,6 @@ AnimatedLinkedList.prototype.draw = function(context)
 		startX = this.left();
 		for (i= 1; i < this.numLabels; i++)
 		{
-			//TODO: this doesn't look right ...
 			startY = this.y + this.h*(1-this.linkPercent)*(i / this.numLabels - 1/2);
 			
 			context.beginPath();
@@ -328,7 +323,7 @@ AnimatedLinkedList.prototype.draw = function(context)
 		context.stroke();		
 		
 	}
-	else // (!vertical && !linkPositionEnd)
+	else 
 	{
 		startX = this.left()  + this.w * this.linkPercent;
 		startY = this.top() ;
