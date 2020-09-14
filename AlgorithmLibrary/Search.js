@@ -294,15 +294,11 @@ Search.prototype.setup = function(){
     this.cmd("AlignRight",   this.resultString, this.resultBoxID);
     this.cmd("SetTextColor", this.resultString, "#FF0000");
 
-
-
     this.indexBoxID = this.nextIndex++;
     this.indexBoxLabel = this.nextIndex++;
     this.cmd("CreateRectangle",  this.indexBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,INDEX_X, INDEX_Y);
     this.cmd("CreateLabel",  this.indexBoxLabel,  "indice  ", INDEX_X, INDEX_Y);
     this.cmd("AlignLeft",   this.indexBoxLabel, this.indexBoxID);
-
-
 
     this.midBoxID = this.nextIndex++;
     this.midBoxLabel = this.nextIndex++;
@@ -316,7 +312,6 @@ Search.prototype.setup = function(){
     this.midCircleID = this.nextIndex++;
     this.cmd("CreateHighlightCircle", this.midCircleID, MID_CIRCLE_COLOR, 0, 0, HIGHLIGHT_CIRCLE_SIZE);
 
-
     this.lowBoxID = this.nextIndex++;
     this.lowBoxLabel = this.nextIndex++;
     this.cmd("CreateRectangle",  this.lowBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,LOW_POS_X, LOW_POS_Y);
@@ -329,8 +324,6 @@ Search.prototype.setup = function(){
     this.lowCircleID = this.nextIndex++;
     this.cmd("CreateHighlightCircle", this.lowCircleID, LOW_CIRCLE_COLOR, 0,0,HIGHLIGHT_CIRCLE_SIZE);
 
-
-
     this.highBoxID = this.nextIndex++;
     this.highBoxLabel = this.nextIndex++;
     this.cmd("CreateRectangle",  this.highBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,HIGH_POS_X, HIGH_POS_Y);
@@ -339,7 +332,6 @@ Search.prototype.setup = function(){
     this.cmd("SetForegroundColor", this.highBoxID, HIGH_CIRCLE_COLOR);
     this.cmd("SetTextColor", this.highBoxID, HIGH_CIRCLE_COLOR);
     this.cmd("SetBackgroundColor", this.highBoxID, HIGH_BACKGROUND_COLOR);
-
 
     this.highCircleID = this.nextIndex++;
     this.cmd("CreateHighlightCircle", this.highCircleID, HIGH_CIRCLE_COLOR, 0 , 0, HIGHLIGHT_CIRCLE_SIZE);
@@ -405,7 +397,6 @@ Search.prototype.setup_large  = function() {
    SIZE = SIZE_LARGE;
    this.size = LARGE_SIZE;
    this.setup()
-
 }
 
 Search.prototype.setup_create  = function(createVal) {
@@ -419,8 +410,7 @@ Search.prototype.setup_create  = function(createVal) {
     ARRAY_LINE_SPACING = ARRAY_LINE_SPACING_LARGE;
     SIZE = createVal;
     this.size = LARGE_SIZE;
-    this.setup()
- 
+    this.setup() 
  }
 
 //----------NO TOCAR----------------------------------
@@ -478,7 +468,6 @@ Search.prototype.binarySearch = function(searchVal){//BINARY SEARCH
     this.cmd("SetText", this.resultBoxID, "");
     this.cmd("SetText", this.movingLabelID, "");
 
-
     var low = 0;
     var high = SIZE- 1;
     this.cmd("Move", this.lowCircleID, this.getIndexX(0), this.getIndexY(0));
@@ -533,7 +522,6 @@ Search.prototype.binarySearch = function(searchVal){//BINARY SEARCH
             if (this.arrayData[mid] == searchVal) {
 // HIGHLIGHT CODE!
 		keepGoing = false;
-
             }
             else {
 
@@ -572,7 +560,6 @@ Search.prototype.binarySearch = function(searchVal){//BINARY SEARCH
                     this.cmd("SetForegroundColor", this.binaryCodeID[10][0], Search.CODE_STANDARD_COLOR);
                     this.cmd("SetHighlight", this.midBoxID,0);
 
-
 		}
 	    }
 
@@ -598,17 +585,12 @@ Search.prototype.binarySearch = function(searchVal){//BINARY SEARCH
         this.cmd("SetForegroundColor", this.binaryCodeID[6][0], Search.CODE_HIGHLIGHT_COLOR);
         this.cmd("Step")
         this.cmd("SetForegroundColor", this.binaryCodeID[6][0], Search.CODE_STANDARD_COLOR);
-
     }
 	
     for (var i = 0; i < SIZE; i++) {
         this.cmd("SetAlpha", this.arrayID[i],1);
     }
     return this.commands;
-
-
-
-
 }
 
 
@@ -693,8 +675,6 @@ Search.prototype.linearSearch = function(searchVal){//LINEAL SEARCH
         this.cmd("SetForegroundColor", this.linearCodeID[5][0], Search.CODE_HIGHLIGHT_COLOR);
         this.cmd("Step");
         this.cmd("SetForegroundColor", this.linearCodeID[5][0], Search.CODE_STANDARD_COLOR);
-
-	
     }
 
     else if (this.arrayData[foundIndex] == searchVal)
@@ -724,9 +704,6 @@ Search.prototype.linearSearch = function(searchVal){//LINEAL SEARCH
         this.cmd("AlignRight",   this.resultString, this.resultBoxID);
         this.cmd("Step");
         this.cmd("SetForegroundColor", this.linearCodeID[6][0], Search.CODE_STANDARD_COLOR);
-
-
-
     }
     else 
     {
@@ -743,41 +720,22 @@ Search.prototype.linearSearch = function(searchVal){//LINEAL SEARCH
         this.cmd("AlignRight",   this.resultString, this.resultBoxID);
         this.cmd("Step");
         this.cmd("SetForegroundColor", this.linearCodeID[5][0], Search.CODE_STANDARD_COLOR);
-
-
-
     }
     return this.commands;
-
-
 }
-
 
 Search.prototype.quickSearch = function(searchVal){//QUICK SEARCH  --- falta implementar UU
     this.commands = new Array();
     this.setCodeAlpha(this.binaryCodeID, 0);
     this.setCodeAlpha(this.linearCodeID, 0);
     this.setCodeAlpha(this.quickCodeID, 1);
-
     this.cmd("SetALpha", this.lowBoxID, 0);
     this.cmd("SetALpha", this.lowBoxLabel, 0);
     this.cmd("SetALpha", this.midBoxID, 0);
     this.cmd("SetALpha", this.midBoxLabel, 0);
     this.cmd("SetALpha", this.highBoxID, 0);
     this.cmd("SetALpha", this.highBoxLabel, 0);
-
-
-
-
-
-
-
-
 }
-
-
-
-
 
 var currentAlg;
 
