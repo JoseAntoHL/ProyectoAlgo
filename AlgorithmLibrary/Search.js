@@ -1,4 +1,4 @@
-//POSICION DEL CODIGO EN PANTALLA
+//POSICION DEL PSUCODIGO EN PANTALLA
 Search.CODE_START_X = 1000;
 Search.CODE_START_Y = 10;
 Search.CODE_LINE_HEIGHT = 14;
@@ -47,7 +47,7 @@ var LOW_POS_Y = 310;
 var MID_POS_X = 1100;
 var MID_POS_Y = 310;
 
-//CIRCULO ALTO 
+//POSICION DEL CIRCULO 
 var HIGH_POS_X = 1200;
 var HIGH_POS_Y = 310;
 
@@ -108,17 +108,15 @@ Search.BINARY_CODE = [ ["1. def ", "binarySearch(listData, value)"],
                        ["9.            low = mid + 1"],
                        ["10.        else:"],
                        ["11.            high = mid - 1"],
-                       ["12.    return -1"]]
-Search.QUICK_CODE = [   ["1. def", "quickSelect(listData, value)"], 
-                        ["2. "],    
-                        [""],
-                        [""],
-                        [""],
-                        [""],
-                        [""],
-                        [""],
-                        [""],
-                        [""]]
+                       ["12.    return -1"]];
+Search.QUICK_CODE = [   ["1. def", "quickSelect(list, left, right, k)"], 
+                        ["2.    if left = right "],    
+                        ["3.        return list[left]"],
+                        ["4.        pivotIndex  :=  lenght(list)/2"],
+                        ["5.        pivotIndex  := partition(list, left, right, pivotIndex)"],
+                        ["6.    if k = pivotIndex"],
+                        ["7.        return list[k]"],
+                        ["8.    else if k < pivotIndex"]]
 
 
 Search.prototype.init = function(am, w, h)
@@ -209,6 +207,7 @@ Search.prototype.setup = function(){
 	this.arrayID[i]= this.nextIndex++;
 	this.arrayLabelID[i]= this.nextIndex++;
     }
+
 
     for (var i = 1; i < SIZE; i++) {
         var nxt = this.arrayData[i];
