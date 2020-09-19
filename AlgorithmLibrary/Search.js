@@ -7,6 +7,8 @@ Search.CODE_LINE_HEIGHT = 14;
 Search.CODE_HIGHLIGHT_COLOR = "#FF0000"; /* COLOR DE LA LETRA EN USO*/ 
 Search.CODE_STANDARD_COLOR = "#000000"; /* COLOR DE LA LETRA EN ESTADO NORMAL*/ 
 
+var TIME = "";
+
 var SMALL_SIZE = 0;
 var LARGE_SIZE = 1;
 
@@ -132,6 +134,18 @@ Search.prototype.init = function(am, w, h)
 Search.prototype.addControls =  function()  /* BOTONES */{
     this.controls = [];
     //PRIMER FIELD-------------
+    this.cantField = addControlToAlgorithmBar("Text", "");//AQUI SE COLOCA EL NUMERO DE CUADROS A CREAR
+    this.cantField.onkeydown = this.returnSubmit(this.cantField, null, 3, true);//MAX 999
+
+    this.createField = addControlToAlgorithmBar("Button", "Crear Vector");
+    this.createField.onclick = this.createFieldback.bind(this);
+    this.controls.push(this.cantField);
+    this.controls.push(this.createField);
+
+    //this.timeField = addControlToAlgorithmBar("Text", "     ")
+
+
+    // SEGUNDO FIELD----
     this.searchField = addControlToAlgorithmBar("Text", "");//AQUI SE COLOCA EL NUMERO QUE DESEA BUSCAR
     this.searchField.onkeydown = this.returnSubmit(this.searchField,  null,  6, true);//MAX 999999
 
@@ -150,15 +164,7 @@ Search.prototype.addControls =  function()  /* BOTONES */{
     this.quicksearchButton.onclick = this.quickSearchCallback.bind(this);
     this.controls.push(this.quicksearchButton);
 
-    // SEGUNDO FIELD----
-    this.cantField = addControlToAlgorithmBar("Text", "");//AQUI SE COLOCA EL NUMERO DE CUADROS A CREAR
-    this.cantField.onkeydown = this.returnSubmit(this.cantField, null, 3, true);//MAX 999
-
-    this.createField = addControlToAlgorithmBar("Button", "Crear Vector");
-    this.createField.onclick = this.createFieldback.bind(this);
-    this.controls.push(this.cantField);
-    this.controls.push(this.createField);
-
+    
 }
 
 Search.prototype.enableUI = function(event){
@@ -236,7 +242,7 @@ Search.prototype.setup = function(){
     this.movingLabelID = this.nextIndex++;
     this.cmd("CreateLabel",this.movingLabelID,  "", 0, 0);
 
-//-----------------------------------------CUADROS DE LADO DERECHO-----------------------------------------------------------------------
+//-----------------------------------------CUADRADOS DE LADO DERECHO-----------------------------------------------------------------------
     this.searchForBoxID = this.nextIndex++;
     this.searchForBoxLabel = this.nextIndex++;
     this.cmd("CreateRectangle",  this.searchForBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,SEARCH_FOR_X, SEARCH_FOR_Y);
@@ -317,11 +323,12 @@ Search.prototype.setup = function(){
 
     this.linearCodeID = this.addCodeToCanvasBase(Search.LINEAR_CODE, Search.CODE_START_X, Search.CODE_START_Y, Search.CODE_LINE_HEIGHT, Search.CODE_STANDARD_COLOR);
 
-    //this.quickCodeID = this.addCodeToCanvasBase(Search.QUICK_CODE, Search.CODE_START_X, Search.CODE_START_Y, Search.CODE_LINE_HEIGHT, Search.CODE_STANDARD_COLOR);
+    this.quickCodeID = this.addCodeToCanvasBase(Search.QUICK_CODE, Search.CODE_START_X, Search.CODE_START_Y, Search.CODE_LINE_HEIGHT, Search.CODE_STANDARD_COLOR);
 
+    // 0 para que no se vea el pseudocodigo
     this.setCodeAlpha(this.binaryCodeID, 0);
     this.setCodeAlpha(this.linearCodeID, 0);
-    //this.setCodeAlpha(this.quickCodeID, 0);
+    this.setCodeAlpha(this.quickCodeID, 0);
 
     this.animationManager.StartNewAnimation(this.commands);
     this.animationManager.skipForward();
@@ -346,19 +353,32 @@ Search.prototype.setup_create  = function(createVal) {
 //FUNCIONES DE IMPLEMENTACION DE LOS METODOS 
 Search.prototype.linearSearchCallback = function(event)
 {
+    if(TIME){
+        deleteControlToAlgorithmBar(TIME);
+    }
     var searchVal = this.searchField.value;
+    var start = performance.now();
     this.implementAction(this.linearSearch.bind(this), searchVal);
+    var end = performance.now();
+    var tiempo = end - start;
+    TIME = addControlToAlgorithmBar("Text", "Tiempo: " + tiempo.toFixed(4)+ " ms");
 }
 
 Search.prototype.binarySearchCallback = function(event)
 {
-
+    if(TIME){
+        deleteControlToAlgorithmBar(TIME);
+    }
     var searchVal = this.searchField.value;
+    var start = performance.now();
     this.implementAction(this.binarySearch.bind(this), searchVal);
-
+    var end = performance.now();
+    var tiempo = end - start;
+    TIME = addControlToAlgorithmBar("Text", "Tiempo: " + tiempo.toFixed(4)+ " ms");
+    
 }
 
-Search.prototype.quickSearchCallback = function(event) // NO FUNCIONAL
+Search.prototype.quickSearchCallback = function(event) // NO IMPLEMENTADO
 {
     var searchVal = this.searchField.value;
     this.implementAction(this.quickSearch.bind(this), searchVal);
@@ -665,6 +685,19 @@ Search.prototype.quickSearch = function(searchVal){
     this.cmd("SetALpha", this.midBoxLabel, 0);
     this.cmd("SetALpha", this.highBoxID, 0);
     this.cmd("SetALpha", this.highBoxLabel, 0);
+
+    this.cmd("SetAlpha", this.lowCircleID, 0);
+    this.cmd("SetAlpha", this.midCircleID, 0);
+    this.cmd("SetAlpha", this.highCircleID, 0);
+    this.cmd("SetPosition", this.lowCircleID, LOW_POS_X, LOW_POS_Y);
+    this.cmd("SetPosition", this.midCircleID, MID_POS_X, MID_POS_Y);
+    this.cmd("SetPosition", this.highCircleID, HIGH_POS_X, HIGH_POS_Y);
+    this.cmd("SetAlpha", this.indexBoxID, 0);
+    this.cmd("SetAlpha", this.indexBoxLabel, 0);
+
+    this.cmd("SetText", this.resultString, "");
+    this.cmd("SetText", this.resultBoxID, "");
+    this.cmd("SetText", this.movingLabelID, "");
 }
 
 var currentAlg;
