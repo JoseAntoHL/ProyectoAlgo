@@ -16,6 +16,9 @@ function addControlToAlgorithmBar(type, name) {
 	return element;
 	
 }
+function deleteControlToAlgorithmBar(element){
+	element.parentNode.removeChild(element);
+}
 
 
 function Algorithm(am)//constructor
