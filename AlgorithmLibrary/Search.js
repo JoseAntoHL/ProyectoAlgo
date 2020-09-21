@@ -160,9 +160,9 @@ Search.prototype.addControls =  function()  /* BOTONES */{
     this.controls.push(this.binarySearchButton);
     
 
-    this.quicksearchButton = addControlToAlgorithmBar("Button", "Quick Select");//BOTON DE QUICK SELECT
-    this.quicksearchButton.onclick = this.quickSearchCallback.bind(this);
-    this.controls.push(this.quicksearchButton);
+    //this.quicksearchButton = addControlToAlgorithmBar("Button", "Quick Select");//BOTON DE QUICK SELECT
+    //this.quicksearchButton.onclick = this.quickSearchCallback.bind(this);
+    //this.controls.push(this.quicksearchButton);
 
     
 }
