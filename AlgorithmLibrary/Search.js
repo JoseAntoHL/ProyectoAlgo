@@ -449,7 +449,7 @@ Search.prototype.binarySearch = function(searchVal){
             this.cmd("SetHighlight", this.arrayID[mid],0);
             this.cmd("SetForegroundColor", this.binaryCodeID[5][1], Search.CODE_STANDARD_COLOR);
             if (this.arrayData[mid] == searchVal) {
-
+// HIGHLIGHT CODE!
 		keepGoing = false;
             }
             else {
